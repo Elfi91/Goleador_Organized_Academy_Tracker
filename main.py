@@ -1,3 +1,9 @@
+"GEMINI GEM = https://gemini.google.com/gem/1HOZjA5ibxeSk-AKGGa0ToZyXxjtzD-zh?usp=sharing"
+
+# ===============
+# LOGICA
+# ===============
+
 '''
 Menu
 
@@ -11,6 +17,7 @@ Menu
         i. Nome
         ii. Cognome
         iii. Corso che segue
+        iiii. Goleador vinte
     b. Iscrivere un nuovo partecipante
     c. Rimuovere un partecipante
 
@@ -22,11 +29,13 @@ Menu
 4. Analytics / Statistiche:
     a. Totale goleador vinte per ogni corso
     b. Top scorer di ogni corso
-    c. Identificare la 'Top Scorer
+    c. Identificare la Top Scorer
 '''
 
-
+# ===============
 # JSON FILE
+# ===============
+
 ''' {
         "corso_nome": "Python junior",
         "partecipanti": [
