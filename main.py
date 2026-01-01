@@ -68,6 +68,7 @@ ALTRIMENTI:
 import os
 import json
 
+'''
 if os.path.exists ("data.json"):
     # Qui vanno caricare i dati veri
     with open("data.json", "r") as f:
@@ -75,8 +76,59 @@ if os.path.exists ("data.json"):
 else:
     data = []
 
+'''
+
 # 1. Il Database (la lista vuota all'inizio)
 corsi = []
+partecipanti = []
+
+
+# ================================================
+# ASSEGNAZIONE GOLEADOR
+# ================================================
+
+
+
+# ================================================
+# 02. PARTECIPANTI
+# ================================================
+
+# 2. La funzione "Operaia": aggiungi partecipanti
+def aggiungi_partecipante():
+    aggiungi_nome_partecipante = input("Scrivi di seguito il nome del partecipante: ")
+    aggiungi_cognome_partecipante = input("Scrivi di seguito il cognome del partecipante: ")
+    
+    # Creiamo il dizionario
+    nuovo_partecipante = {
+        "nome_partecipante": aggiungi_nome_partecipante,
+        "cognome_partecipante": aggiungi_cognome_partecipante,
+    }
+
+    # Viene salvato nella lista globale
+    partecipanti.append(nuovo_partecipante)
+    print(f"Nome: {nuovo_partecipante['nome_partecipante']} - Cognome: {nuovo_partecipante['cognome_partecipante']}")  
+
+# 3. La funzione "Vigile": smista il traffico
+def gestisci_partecipanti():
+    scelta2 = input("Hai scelto i partecipanti - Premi 'v' per visualizzare o 'a' per aggiungere: ")
+    
+    if scelta2 == 'v':
+        if len(partecipanti) == 0:
+            print("⚠️  La lista dei partecipanti è vuota!")
+            conferma = input("Vuoi aggiungere un nuovo partecipante ora? (s/n): ")
+            if conferma == 's':
+                aggiungi_partecipante()
+        print("Ecco la lista dei partecipanti: ")
+        # Ciclo for
+        for partecipante in partecipanti:
+            print(f"Nome: {partecipante['nome_partecipante']} - Cognome: {partecipante['cognome_partecipante']}")  
+    elif scelta2 == 'a':
+        aggiungi_partecipante()
+
+
+# ================================================
+# 01. CORSI
+# ================================================
 
 # 2. La funzione "Operaia": crea il corso
 def aggiungi_corso():
@@ -91,23 +143,30 @@ def aggiungi_corso():
 
     # Viene salvato nella lista globale
     corsi.append(nuovo_corso)
-    print(f"Corso {nuovo_corso} aggiunto correttamente.")
+    print(f"Corso '{nuovo_corso['nome_corso']}' (Max {nuovo_corso['numero_posti']} posti) aggiunto correttamente.")
 
 # 3. La funzione "Vigile": smista il traffico
 def gestisci_corsi():
     scelta1 = input("Hai scelto i corsi - Premi 'v' per visualizzare o 'a' per aggiungere: ")
     
     if scelta1 == 'v':
-        print("Ecco la lista dei corsi: ")
+        if len(corsi) == 0:
+            print("⚠️  La lista dei corsi è vuota!")
+            conferma = input("Vuoi aggiungere un nuovo corso ora? (s/n): ")
+            if conferma == 's':
+                aggiungi_corso()
+        else:
+            print("Ecco la lista dei corsi: ")
         # Ciclo for
         for corso in corsi:
-            print(f"Nome: {corso['nome_corso']} - Posti: {corso['numero_posti']}")  
+                print(f"Nome: {corso['nome_corso']} - Posti: {corso['numero_posti']}")  
+            
     elif scelta1 == 'a':
         aggiungi_corso()
 
-# ==========
+# ================================================
 # MAIN
-# ==========
+# ================================================
 
 # 4. Il Menu Principale (Il ciclo di vita del programma)
 programma_attivo = True
@@ -131,12 +190,13 @@ while programma_attivo == True:
         gestisci_corsi()
 
     elif scelta == "2":
-        print("Hai scelto i partecipanti")
+        gestisci_partecipanti()
 
     elif scelta == "3":
         print("Hai scelto le assegnazione goleador")
 
     elif scelta == "4":
         print("Hai scelto le Analytics & Statistiche")
+        
     else:
         print("Inserisci un numero dall'elenco")
