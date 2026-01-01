@@ -75,36 +75,57 @@ if os.path.exists ("data.json"):
 else:
     data = []
 
+# 1. Il Database (la lista vuota all'inizio)
 corsi = []
 
+# 2. La funzione "Operaia": crea il corso
 def aggiungi_corso():
     aggiungi_nome_corso = input("Scrivi di seguito il nome del corso: ")
     numero_posti_massimo = input("Scrivi il numero di posti massimo del corso: ")
+    
+    # Creiamo il dizionario
     nuovo_corso = {
         "nome_corso": aggiungi_nome_corso,
         "numero_posti": numero_posti_massimo,
     }
+
+    # Viene salvato nella lista globale
     corsi.append(nuovo_corso)
+    print(f"Corso {nuovo_corso} aggiunto correttamente.")
 
-    print(f"Il nome del corso è {aggiungi_nome_corso} e il numero massimo dei posti è {numero_posti_massimo}")
-
+# 3. La funzione "Vigile": smista il traffico
 def gestisci_corsi():
     scelta1 = input("Hai scelto i corsi - Premi 'v' per visualizzare o 'a' per aggiungere: ")
+    
     if scelta1 == 'v':
-        print("Hai scelto di visualizzare la lista dei corsi")
+        print("Ecco la lista dei corsi: ")
+        # Ciclo for
+        for corso in corsi:
+            print(f"Nome: {corso['nome_corso']} - Posti: {corso['numero_posti']}")  
     elif scelta1 == 'a':
         aggiungi_corso()
 
 # ==========
+# MAIN
+# ==========
 
+# 4. Il Menu Principale (Il ciclo di vita del programma)
 programma_attivo = True
+
 while programma_attivo == True:
-    print("1. Corsi\n2. Partecipanti\n3. Assegnazione Goleador\n4. Analytics & Statistiche\n0. Exit")
-    scelta = input("Inserisci un numero: ")
+    print("\n---MENU PRINCIPALE---")
+    print("1. Gestisci corsi")
+    print("2. Partecipanti")
+    print("3. Assegnazione Goleador")
+    print("4. Analytics & Statistiche")
+    print("0. Exit")
+
+    scelta = input("Inserisci un'opzione: ")
 
     if scelta == "0":
         programma_attivo = False
-        print("Hai scelto di uscire del programma")
+        print("Arrivederci")
+        break
 
     elif scelta == "1":
         gestisci_corsi()
@@ -117,3 +138,5 @@ while programma_attivo == True:
 
     elif scelta == "4":
         print("Hai scelto le Analytics & Statistiche")
+    else:
+        print("Inserisci un numero dall'elenco")
