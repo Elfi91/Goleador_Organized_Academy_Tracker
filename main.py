@@ -86,7 +86,32 @@ partecipanti = []
 # ================================================
 # ASSEGNAZIONE GOLEADOR
 # ================================================
+'''
+1. Controllare se abbiamo gli ingredienti (ci sono corsi? ci sono persone?).
+2. Far scegliere l'utente (chi iscrivo? dove?).
+3. Salvare il collegamento.'''
 
+def assegna_goleador():
+    # CONTROLLO INIZIALE
+    # Se la lista corsi è vuota OPPURE (or) la lista partecipanti è vuota
+    if len(corsi) == 0 or len(partecipanti) == 0:
+        print("⚠️ Attenzione: mancano corsi o partecipanti!")
+        print("Aggiungili dal menu principale prima di fare assegnazioni.")
+        return # Questo comando fa uscire subito dalla funzione
+    
+    print("Seleziona un partecipante:")
+    # 1. Correggi: metti 'partecipante' (singolo) e 'partecipanti' (lista) al posto giusto
+    for i, partecipante in enumerate(partecipanti):
+        # 2. Correggi: stampa solo il nome e cognome usando le chiavi ['...']
+        print(f"{i}. {partecipante['nome_partecipante']} {partecipante['cognome_partecipante']}")
+    
+    indice_partecipante = int(input("Inserisci il numero del partecipante: "))
+
+    print("Seleziona un corso:")
+    for i, corso in enumerate(corsi):
+        # 2. Correggi: stampa solo il nome e cognome usando le chiavi ['...']
+        print(f"{i}. {corso['nome_corso']} {corso['numero_posti']}")        
+    indice_corso = int(input("Inserisci il numero del corso: "))
 
 
 # ================================================
@@ -124,6 +149,7 @@ def gestisci_partecipanti():
             print(f"Nome: {partecipante['nome_partecipante']} - Cognome: {partecipante['cognome_partecipante']}")  
     elif scelta2 == 'a':
         aggiungi_partecipante()
+
 
 
 # ================================================
@@ -193,7 +219,7 @@ while programma_attivo == True:
         gestisci_partecipanti()
 
     elif scelta == "3":
-        print("Hai scelto le assegnazione goleador")
+        assegna_goleador()
 
     elif scelta == "4":
         print("Hai scelto le Analytics & Statistiche")
