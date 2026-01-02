@@ -1,0 +1,24 @@
+{
+    "corsi": [
+        {
+            "nome_corso": "Python 1.0",
+            "numero_posti": "5"
+        },
+        {
+            "nome_corso": "PM 1.0",
+            "numero_posti": "5"
+        }
+    ],
+    "partecipanti": [
+        {
+            "nome_partecipante": "Mario",
+            "cognome_partecipante": "Rossi",
+            "goleador": 10
+        },
+        {
+            "nome_partecipante": "Bianca",
+            "cognome_partecipante": "Bianchini",
+            "goleador": 3
+        }
+    ]
+}

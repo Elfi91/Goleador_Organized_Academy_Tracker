@@ -68,15 +68,56 @@ ALTRIMENTI:
 import os
 import json
 
-'''
-if os.path.exists ("data.json"):
-    # Qui vanno caricare i dati veri
-    with open("data.json", "r") as f:
-        data = json.load(f)
-else:
-    data = []
+# ================================================
+# CREAZIONE & SALVATAGGIO DATABASE
+# ================================================
 
+def salva_dati():
+    dati = {
+        "corsi" : corsi,
+        "partecipanti" : partecipanti
+        }
+
+    with open("dati.json", "w") as f:
+        json.dump(dati, f, indent=4)
+
+
+    
 '''
+def check_if_json_db_has_correct_shape(db_name: str) -> bool:
+    """Verifica che il db esiste ed è nella forma corretta."""
+    if not os.path.isfile(db_name):
+        return False
+    
+    with open(db_name, "r") as f:
+        data = json.load(f)
+        return isinstance(data, list)
+    
+def create_json_db(db_name: str) -> bool:
+    """Crea un nuovo file db con lista vuota."""
+    os.mkdir(os.path.dirname(db_name), exist_ok=True)
+
+    with open(db_name, "w") as f:
+        f.write("[]")
+
+    return True
+
+def save_json_db(db_name: str, new_value: dict) -> None:
+    """Salva il nuovo oggetto nel db."""    
+    if not check_if_json_db_has_correct_shape(db_name):
+        create_json_db(db_name)
+
+    db: list[dict] = []
+
+    with open(db_name, "r") as f:
+        db.extend(json.load(f))
+
+    db.append(new_value)
+
+    with open(db_name, "w", encoding='utf-8') as f:
+        json.dump(db, f, indent=4, ensure_ascii=False)
+'''
+
 
 # 1. Il Database (la lista vuota all'inizio)
 corsi = []
@@ -114,6 +155,27 @@ def assegna_goleador():
     indice_corso = int(input("Inserisci il numero del corso: "))
 
 
+# 1. Recuperiamo i dizionari veri
+    partecipante_selezionato = partecipanti[indice_partecipante]
+    corso_selezionato = corsi[indice_corso]
+    
+# 2. Stampa di conferma
+    print(f"Stai dando Goleador a {partecipante_selezionato['nome_partecipante']} che è nel {corso_selezionato['nome_corso']}")
+
+# 3. INPUT: Chiediamo il numero 
+    quantita = int(input("Quante Goleador vuoi assegnare? "))
+    
+# 4. CALCOLO: Recupera il vecchio, somma il nuovo  
+    goleador_precedenti = partecipante_selezionato.get('goleador', 0)
+    nuovo_totale = goleador_precedenti + quantita 
+
+# 5. AGGIORNAMENTO
+    partecipante_selezionato['goleador'] = nuovo_totale
+    print(f"Fatto, Ora ne ha {nuovo_totale}")
+
+    salva_dati()
+
+
 # ================================================
 # 02. PARTECIPANTI
 # ================================================
@@ -149,6 +211,8 @@ def gestisci_partecipanti():
             print(f"Nome: {partecipante['nome_partecipante']} - Cognome: {partecipante['cognome_partecipante']}")  
     elif scelta2 == 'a':
         aggiungi_partecipante()
+
+    salva_dati()
 
 
 
@@ -189,6 +253,8 @@ def gestisci_corsi():
             
     elif scelta1 == 'a':
         aggiungi_corso()
+
+    salva_dati()
 
 # ================================================
 # MAIN
