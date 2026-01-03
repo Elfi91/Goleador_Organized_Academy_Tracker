@@ -5,20 +5,20 @@
             "numero_posti": "5"
         },
         {
-            "nome_corso": "PM 1.0",
-            "numero_posti": "5"
+            "nome_corso": "Cloud 1.0",
+            "numero_posti": "10"
+        },
+        {
+            "nome_corso": "AI 1.0",
+            "numero_posti": "8"
         }
     ],
     "partecipanti": [
         {
             "nome_partecipante": "Mario",
             "cognome_partecipante": "Rossi",
-            "goleador": 24
-        },
-        {
-            "nome_partecipante": "Bianca",
-            "cognome_partecipante": "Bianchini",
-            "goleador": 3
+            "corso": "AI 1.0",
+            "goleador": 9
         }
     ]
 }
