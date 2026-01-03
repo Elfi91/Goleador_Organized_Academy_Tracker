@@ -72,17 +72,35 @@ import json
 # CREAZIONE & SALVATAGGIO DATABASE
 # ================================================
 
-def salva_dati():
-    dati = {
-        "corsi" : corsi,
-        "partecipanti" : partecipanti
-        }
+
+def salva_dati(lista_corsi, lista_partecipanti):
+    db_completo = {
+        "corsi" : lista_corsi,
+        "partecipanti" : lista_partecipanti
+    }
 
     with open("dati.json", "w") as f:
-        json.dump(dati, f, indent=4)
+        json.dump(db_completo, f, indent=4)
 
+def carica_dati():
+    filename = "dati.json"
 
+    if not os.path.exists(filename):
+        return [], []
     
+    try:
+        with open(filename, "r") as f:
+            db_completo = json.load(f)
+
+            lista_corsi = db_completo.get("corsi", [])
+            lista_partecipanti = db_completo.get("partecipanti", [])
+
+            return lista_corsi, lista_partecipanti
+        
+    except (json.JSONDecodeError, IOError):
+        return [], []
+    
+ 
 '''
 def check_if_json_db_has_correct_shape(db_name: str) -> bool:
     """Verifica che il db esiste ed è nella forma corretta."""
@@ -120,8 +138,7 @@ def save_json_db(db_name: str, new_value: dict) -> None:
 
 
 # 1. Il Database (la lista vuota all'inizio)
-corsi = []
-partecipanti = []
+corsi, partecipanti = carica_dati()
 
 
 # ================================================
@@ -132,38 +149,60 @@ partecipanti = []
 2. Far scegliere l'utente (chi iscrivo? dove?).
 3. Salvare il collegamento.'''
 
+def richiedi_indice_valido(lista_riferimento):
+    while True:
+        try:
+            valore = int(input("Inserisci il numero corrispondente: "))
+            
+            # Controlliamo se il numero è dentro i limiti della lista
+            if 0 <= valore < len(lista_riferimento):
+                return valore # È valido! Usciamo e restituiamo il numero
+            else:
+                print(f"⚠️ Errore: Inserisci un numero tra 0 e {len(lista_riferimento) - 1}.")
+                
+        except ValueError:
+            # Succede se l'utente scrive lettere invece di numeri
+            print("⚠️ Errore: Devi inserire un numero intero, non parole!")
+
 def assegna_goleador():
-    # CONTROLLO INIZIALE
-    # Se la lista corsi è vuota OPPURE (or) la lista partecipanti è vuota
+# CONTROLLO INIZIALE
     if len(corsi) == 0 or len(partecipanti) == 0:
         print("⚠️ Attenzione: mancano corsi o partecipanti!")
         print("Aggiungili dal menu principale prima di fare assegnazioni.")
         return # Questo comando fa uscire subito dalla funzione
     
+# --- SELEZIONE PARTECIPANTE ---
     print("Seleziona un partecipante:")
-    # 1. Correggi: metti 'partecipante' (singolo) e 'partecipanti' (lista) al posto giusto
     for i, partecipante in enumerate(partecipanti):
-        # 2. Correggi: stampa solo il nome e cognome usando le chiavi ['...']
         print(f"{i}. {partecipante['nome_partecipante']} {partecipante['cognome_partecipante']}")
     
-    indice_partecipante = int(input("Inserisci il numero del partecipante: "))
+    indice_partecipante = richiedi_indice_valido(partecipanti)
 
+# --- SELEZIONE CORSO ---
     print("Seleziona un corso:")
     for i, corso in enumerate(corsi):
-        # 2. Correggi: stampa solo il nome e cognome usando le chiavi ['...']
         print(f"{i}. {corso['nome_corso']} {corso['numero_posti']}")        
-    indice_corso = int(input("Inserisci il numero del corso: "))
+    
+    indice_corso = richiedi_indice_valido(corsi)
 
 
-# 1. Recuperiamo i dizionari veri
+# --- LOGICA DI ASSEGNAZIONE ---
     partecipante_selezionato = partecipanti[indice_partecipante]
     corso_selezionato = corsi[indice_corso]
     
 # 2. Stampa di conferma
-    print(f"Stai dando Goleador a {partecipante_selezionato['nome_partecipante']} che è nel {corso_selezionato['nome_corso']}")
+    print(f"\nStai dando Goleador a {partecipante_selezionato['nome_partecipante']} del {corso_selezionato['nome_corso']}")
 
 # 3. INPUT: Chiediamo il numero 
-    quantita = int(input("Quante Goleador vuoi assegnare? "))
+    
+    while True:
+        try:
+            quantita = int(input("Quante Goleador vuoi assegnare? "))
+            if quantita > 0:
+                break
+            print("Devi assegnare almeno una goleador")
+        except ValueError:
+            print("Inserisci un numero valido")
     
 # 4. CALCOLO: Recupera il vecchio, somma il nuovo  
     goleador_precedenti = partecipante_selezionato.get('goleador', 0)
@@ -171,9 +210,9 @@ def assegna_goleador():
 
 # 5. AGGIORNAMENTO
     partecipante_selezionato['goleador'] = nuovo_totale
-    print(f"Fatto, Ora ne ha {nuovo_totale}")
+    print(f"✅Fatto, Ora {partecipante_selezionato['nome_partecipante']} ne ha {nuovo_totale}")
 
-    salva_dati()
+    salva_dati(corsi, partecipanti)
 
 
 # ================================================
@@ -205,14 +244,16 @@ def gestisci_partecipanti():
             conferma = input("Vuoi aggiungere un nuovo partecipante ora? (s/n): ")
             if conferma == 's':
                 aggiungi_partecipante()
-        print("Ecco la lista dei partecipanti: ")
+
+        print("\n--- LISTA PARTECIPANTI & PUNTEGGI ---")
         # Ciclo for
         for partecipante in partecipanti:
-            print(f"Nome: {partecipante['nome_partecipante']} - Cognome: {partecipante['cognome_partecipante']}")  
+            numero_goleador = partecipante.get('goleador', 0)
+            print(f"👤 {partecipante['nome_partecipante']} {partecipante['cognome_partecipante']} | 🍬 Goleador: {numero_goleador}")  
     elif scelta2 == 'a':
         aggiungi_partecipante()
 
-    salva_dati()
+    salva_dati(corsi, partecipanti)
 
 
 
@@ -249,12 +290,12 @@ def gestisci_corsi():
             print("Ecco la lista dei corsi: ")
         # Ciclo for
         for corso in corsi:
-                print(f"Nome: {corso['nome_corso']} - Posti: {corso['numero_posti']}")  
+            print(f"Nome: {corso['nome_corso']} - Posti: {corso['numero_posti']}")  
             
     elif scelta1 == 'a':
         aggiungi_corso()
 
-    salva_dati()
+    salva_dati(corsi, partecipanti)
 
 # ================================================
 # MAIN
