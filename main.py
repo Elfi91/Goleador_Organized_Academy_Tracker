@@ -81,7 +81,7 @@ corsi, partecipanti = carica_dati()
 3. Salvare il collegamento.
 '''
 
-def rimuovere_goleador():
+def rimuovi_goleador():
     if len(partecipanti) == 0:
         print("⚠️ Non ci sono partecipanti.")
         return
@@ -191,7 +191,7 @@ def rimuovi_partecipante():
     for i, partecipante in enumerate(partecipanti):
         print(f"{i}. {partecipante['nome_partecipante']} {partecipante['cognome_partecipante']}")
 
-    print("Scegli il numero del aprtecipante da eliminare:: ")
+    print("Scegli il numero del partecipante da eliminare: ")
     indice = richiedi_indice_valido(partecipanti)
 
     rimosso = partecipanti.pop(indice)
@@ -213,12 +213,14 @@ def visualizza_partecipanti():
 
 # 2. La funzione "Operaia": aggiungi partecipanti
 def aggiungi_partecipante():
-    aggiungi_nome_partecipante = input("Scrivi di seguito il nome del partecipante: ")
-    aggiungi_cognome_partecipante = input("Scrivi di seguito il cognome del partecipante: ")
-    
     if len(corsi) == 0:
         print("Non puoi iscrivere nessuno se non crei prima un corso!")
         return
+    
+    aggiungi_nome_partecipante = input("Scrivi di seguito il nome del partecipante: ")
+    aggiungi_cognome_partecipante = input("Scrivi di seguito il cognome del partecipante: ")
+    
+    
 
     for i, corso in enumerate(corsi):
         print(f"{i}. {corso['nome_corso']} {corso['numero_posti']}")        
@@ -247,27 +249,6 @@ def aggiungi_partecipante():
 
 
 # 3. La funzione "Vigile": smista il traffico
-def gestisci_partecipanti():
-    scelta2 = input("Hai scelto i partecipanti - Premi 'v' per visualizzare, 'a' per aggiungere, 'e' per eliminare: ")
-    
-    if scelta2 == 'v':
-        if len(partecipanti) == 0:
-            print("⚠️  La lista dei partecipanti è vuota!")
-            conferma = input("Vuoi aggiungere un nuovo partecipante ora? (s/n): ")
-            if conferma == 's':
-                aggiungi_partecipante()
-
-        print("\n--- LISTA PARTECIPANTI & PUNTEGGI ---")
-        # Ciclo for
-        for partecipante in partecipanti:
-            numero_goleador = partecipante.get('goleador', 0)
-            nome_corso_scelto = partecipante.get('corso')
-            print(f"👤 {partecipante['nome_partecipante']} {partecipante['cognome_partecipante']} | 📚 Corso: {nome_corso_scelto} | 🍬 Goleador: {numero_goleador}")  
-    elif scelta2 == 'a':
-        aggiungi_partecipante()
-
-    elif scelta2 == 'e':
-        rimuovi_partecipante()
 
 # ================================================
 # 01. CORSI
@@ -291,23 +272,6 @@ def aggiungi_corso():
     salva_dati(corsi, partecipanti)
 
 # 3. La funzione "Vigile": smista il traffico
-def gestisci_corsi():
-    scelta1 = input("Hai scelto i corsi - Premi 'v' per visualizzare o 'a' per aggiungere: ")
-    
-    if scelta1 == 'v':
-        if len(corsi) == 0:
-            print("⚠️  La lista dei corsi è vuota!")
-            conferma = input("Vuoi aggiungere un nuovo corso ora? (s/n): ")
-            if conferma == 's':
-                aggiungi_corso()
-        else:
-            print("--- Ecco la lista dei corsi ---")
-        # Ciclo for
-        for corso in corsi:
-            print(f"📚 Nome: {corso['nome_corso']} - Posti: {corso['numero_posti']}")  
-            
-    elif scelta1 == 'a':
-        aggiungi_corso()
 
 def visualizza_corsi():
     print("\n--- LISTA CORSI ---")
@@ -345,7 +309,7 @@ while programma_attivo == True:
         print("b. Aggiungi Corso")
         print("c. Torna al menu principale")
         
-        sub_scelta = input("Cosa vuoi fare? ").lower() # .lower() gestisce anche se scrivono 'A'
+        sub_scelta = input("Cosa vuoi fare? ").lower() 
         
         if sub_scelta == 'a':
             visualizza_corsi()
@@ -381,12 +345,12 @@ while programma_attivo == True:
         print("a. Assegna Goleador (+)")
         print("b. Rimuovi Goleador (-)")
         print("c. Torna nel menu principale")
-        sub_scelta = input("Scegli: ")
+        sub_scelta = input("Scegli: ").lower()
 
         if sub_scelta == 'a':
             assegna_goleador()
         elif sub_scelta == 'b':
-            rimuovere_goleador()
+            rimuovi_goleador()
         elif sub_scelta == 'c':
             pass
 
