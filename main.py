@@ -109,8 +109,17 @@ def rimuovi_goleador():
     nuovo_totale = goleador_attuali - da_rimuovere
     partecipante['goleador'] = nuovo_totale
 
-    print(f"✅Fatto. Ora 👤 {partecipante['nome_partecipante']} ha 🍬 {nuovo_totale}")
+    adesso = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    movimento = {
+        "data" : adesso,
+        "quantita" : -da_rimuovere
+        }
+    if "storico" not in partecipante:
+        partecipante["storico"] = []
 
+    partecipante["storico"].append(movimento)
+    
+    print(f"✅Fatto. Ora 👤 {partecipante['nome_partecipante']} ha 🍬 {nuovo_totale}")
     salva_dati(corsi, partecipanti)
 
 
