@@ -99,7 +99,7 @@ def classifica_per_corso():
     nome_del_corso = corso_scelto['nome_corso']
 
     studenti_del_corso = []
-    totale_goleador_corso = []
+    totale_goleador_corso = 0
 
 
 # TO DO: 
@@ -422,7 +422,7 @@ while programma_attivo == True:
             pass
 
     elif scelta == "4":
-        print("\n--- Analytics & Statistiche ---")
+        print("\n--- ANALYTICS & STATISTICHE ---")
         print("a. Classifica goleador")
         print("b. Classifica corso")
         print("x. Torna al menu principale")
