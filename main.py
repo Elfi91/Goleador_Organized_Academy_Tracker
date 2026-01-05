@@ -98,8 +98,8 @@ def classifica_per_corso():
     corso_scelto = corsi[indice]
     nome_del_corso = corso_scelto['nome_corso']
 
-studenti_del_corso = []
-totale_goleador_corso = []
+    studenti_del_corso = []
+    totale_goleador_corso = []
 
 
 # TO DO: 
@@ -108,13 +108,14 @@ totale_goleador_corso = []
     #    a. Aggiungilo alla lista 'studenti_del_corso' (usa .append)
     #    b. Aggiungi le sue goleador al 'totale_goleador_corso' (usa .get per sicurezza!)
 
-studenti_del_corso.sort(key=lambda p: p.get('goleador', 0), reverse=True)
+    studenti_del_corso.sort(key=lambda p: p.get('goleador', 0), reverse=True)
 
-print(f"\nClassifica per: {nome_del_corso}")
-for i, p in enumerate(studenti_del_corso):
-    print(f"{i+1}. {p['nome_partecipante']} (🍬 {p.get('goleador', 0)})")
+    print(f"\nClassifica per: {nome_del_corso}")
 
-print(f"\n💰 TOTALE GOLEADOR DISTRIBUITE NEL CORSO: {totale_goleador_corso}")
+    for i, p in enumerate(studenti_del_corso):
+        print(f"{i+1}. {p['nome_partecipante']} (🍬 {p.get('goleador', 0)})")
+
+    print(f"\n💰 TOTALE GOLEADOR DISTRIBUITE NEL CORSO: {totale_goleador_corso}")
 
 
 
@@ -373,7 +374,7 @@ while programma_attivo == True:
         print("\n--- GESTIONE CORSI ---")
         print("a. Visualizza Corsi")
         print("b. Aggiungi Corso")
-        print("c. Torna al menu principale")
+        print("x. Torna al menu principale")
         
         sub_scelta = input("Cosa vuoi fare? ").lower() 
         
@@ -381,7 +382,7 @@ while programma_attivo == True:
             visualizza_corsi()
         elif sub_scelta == 'b':
             aggiungi_corso()
-        elif sub_scelta == 'c':
+        elif sub_scelta == 'x':
             pass # Torna al menu principale
         else:
             print("Scelta non valida!")
@@ -391,7 +392,7 @@ while programma_attivo == True:
         print("a. Visualizza Partecipanti")
         print("b. Iscrivi nuovo Partecipante")
         print("c. Rimuovi Partecipante")
-        print("d. Torna al menu principale")
+        print("x. Torna al menu principale")
         
         sub_scelta = input("Cosa vuoi fare? ").lower()
         
@@ -401,7 +402,7 @@ while programma_attivo == True:
             aggiungi_partecipante()
         elif sub_scelta == 'c':
             rimuovi_partecipante()
-        elif sub_scelta == 'd':
+        elif sub_scelta == 'x':
             pass
         else:
             print("Scelta non valida!")
@@ -410,28 +411,28 @@ while programma_attivo == True:
         print("\n--- GESTIONE PUNTEGGI ---")
         print("a. Assegna Goleador (+)")
         print("b. Rimuovi Goleador (-)")
-        print("c. Torna nel menu principale")
+        print("x. Torna nel menu principale")
         sub_scelta = input("Scegli: ").lower()
 
         if sub_scelta == 'a':
             assegna_goleador()
         elif sub_scelta == 'b':
             rimuovi_goleador()
-        elif sub_scelta == 'c':
+        elif sub_scelta == 'x':
             pass
 
     elif scelta == "4":
         print("\n--- Analytics & Statistiche ---")
         print("a. Classifica goleador")
-        print("b.")
-        print("c.")
+        print("b. Classifica corso")
+        print("x. Torna al menu principale")
         sub_scelta = input("Scegli: ").lower()
 
         if sub_scelta == 'a':
             classifica_goleador()
         elif sub_scelta == 'b':
-            continue
-        elif sub_scelta == 'c':
+            classifica_per_corso()
+        elif sub_scelta == 'x':
             pass
         
     else:
