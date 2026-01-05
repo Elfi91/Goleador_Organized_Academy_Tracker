@@ -18,7 +18,46 @@
             "nome_partecipante": "Mario",
             "cognome_partecipante": "Rossi",
             "corso": "AI 1.0",
-            "goleador": 9
+            "goleador": 17,
+            "storico": [
+                {
+                    "data": "2026-01-05 18:18:56",
+                    "quantita": 10
+                }
+            ]
+        },
+        {
+            "nome_partecipante": "Franca",
+            "cognome_partecipante": "Bianchi",
+            "corso": "Python 1.0",
+            "storico": [
+                {
+                    "data": "2026-01-05 18:19:04",
+                    "quantita": 14
+                },
+                {
+                    "data": "2026-01-05 18:19:42",
+                    "quantita": 2
+                }
+            ],
+            "goleador": 16
+        },
+        {
+            "nome_partecipante": "Michela",
+            "cognome_partecipante": "Marint",
+            "corso": "Python 1.0"
+        },
+        {
+            "nome_partecipante": "Tizio",
+            "cognome_partecipante": "Caio",
+            "corso": "Python 1.0",
+            "storico": [
+                {
+                    "data": "2026-01-05 18:19:14",
+                    "quantita": 37
+                }
+            ],
+            "goleador": 37
         }
     ]
 }

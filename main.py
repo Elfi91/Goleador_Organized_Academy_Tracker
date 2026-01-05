@@ -36,6 +36,7 @@ Menu
 
 import os
 import json
+from datetime import datetime
 
 # ================================================
 # CREAZIONE & SALVATAGGIO DATABASE
@@ -75,11 +76,6 @@ corsi, partecipanti = carica_dati()
 # ASSEGNAZIONE GOLEADOR
 # ================================================
 
-'''
-1. Controllare se abbiamo gli ingredienti (ci sono corsi? ci sono persone?).
-2. Far scegliere l'utente (chi iscrivo? dove?).
-3. Salvare il collegamento.
-'''
 
 def rimuovi_goleador():
     if len(partecipanti) == 0:
@@ -174,8 +170,22 @@ def assegna_goleador():
     nuovo_totale = goleador_precedenti + quantita 
 
 # 5. AGGIORNAMENTO
+
+    adesso = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    movimento = {
+        "data" : adesso,
+        "quantita" : quantita
+    }
+
+    if "storico" not in partecipante_selezionato:
+        partecipante_selezionato["storico"] = []
+
+    partecipante_selezionato["storico"].append(movimento)
+
     partecipante_selezionato['goleador'] = nuovo_totale
-    salva_dati(corsi, partecipanti)
+
+    salva_dati(corsi, partecipanti) 
     print(f"✅Fatto, Ora {partecipante_selezionato['nome_partecipante']} ne ha {nuovo_totale}")
 
 # ================================================
