@@ -24,7 +24,6 @@ Menu
 3. Assegnazione goleador:
     a. ✅ Assegna goleador
     b. ✅ rimuovi goleador
-    e. ✅rimuovere goleador
 
 4. Analytics / Statistiche:
     a. Totale goleador vinte per ogni corso
@@ -71,6 +70,54 @@ def carica_dati():
 
 # 1. Il Database (la lista vuota all'inizio)
 corsi, partecipanti = carica_dati()
+
+# ================================================
+# Analytics & Statistiche
+# ================================================
+
+def classifica_goleador():
+    print("\n--- CLASSIFICA ---")
+
+    classifica = partecipanti[:]
+    classifica.sort(key=lambda p: p.get('goleador', 0), reverse=True)
+
+    for i, p in enumerate(classifica):
+        print(f"{i}. 🍬 {p.get('goleador', 0)} 👤 {p['nome_partecipante']} {p['cognome_partecipante']}  📚 {p['corso']} ")
+
+def classifica_per_corso():
+    print("\n--- CLASSIFICA PER CORSO ---")
+
+    if len(corsi) == 0:
+        print("Non ci sono corsi.")
+        return
+    
+    for i, c in enumerate(corsi):
+        print(f"{i}. {c['nome_corso']}")
+
+    indice = richiedi_indice_valido(corsi)
+    corso_scelto = corsi[indice]
+    nome_del_corso = corso_scelto['nome_corso']
+
+studenti_del_corso = []
+totale_goleador_corso = []
+
+
+# TO DO: 
+    # 1. Fai un ciclo 'for' su TUTTI i partecipanti.
+    # 2. SE il campo 'corso' del partecipante è uguale a nome_del_corso:
+    #    a. Aggiungilo alla lista 'studenti_del_corso' (usa .append)
+    #    b. Aggiungi le sue goleador al 'totale_goleador_corso' (usa .get per sicurezza!)
+
+studenti_del_corso.sort(key=lambda p: p.get('goleador', 0), reverse=True)
+
+print(f"\nClassifica per: {nome_del_corso}")
+for i, p in enumerate(studenti_del_corso):
+    print(f"{i+1}. {p['nome_partecipante']} (🍬 {p.get('goleador', 0)})")
+
+print(f"\n💰 TOTALE GOLEADOR DISTRIBUITE NEL CORSO: {totale_goleador_corso}")
+
+
+
 
 # ================================================
 # ASSEGNAZIONE GOLEADOR
@@ -374,7 +421,18 @@ while programma_attivo == True:
             pass
 
     elif scelta == "4":
-        print("Hai scelto le Analytics & Statistiche")
+        print("\n--- Analytics & Statistiche ---")
+        print("a. Classifica goleador")
+        print("b.")
+        print("c.")
+        sub_scelta = input("Scegli: ").lower()
+
+        if sub_scelta == 'a':
+            classifica_goleador()
+        elif sub_scelta == 'b':
+            continue
+        elif sub_scelta == 'c':
+            pass
         
     else:
         print("Inserisci un numero dall'elenco")
