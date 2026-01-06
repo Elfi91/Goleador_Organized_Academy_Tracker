@@ -11,6 +11,10 @@
         {
             "nome_corso": "AI 1.0",
             "numero_posti": "8"
+        },
+        {
+            "nome_corso": "Server 1.0",
+            "numero_posti": "5"
         }
     ],
     "partecipanti": [
@@ -62,6 +66,18 @@
                 }
             ],
             "goleador": 32
+        },
+        {
+            "nome_partecipante": "Tom",
+            "cognome_partecipante": "TomTom",
+            "corso": "Server 1.0",
+            "storico": [
+                {
+                    "data": "2026-01-06 17:24:10",
+                    "quantita": 57
+                }
+            ],
+            "goleador": 57
         }
     ]
 }
