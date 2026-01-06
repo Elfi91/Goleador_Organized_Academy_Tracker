@@ -1,11 +1,11 @@
 "GEMINI GEM = https://gemini.google.com/gem/1HOZjA5ibxeSk-AKGGa0ToZyXxjtzD-zh?usp=sharing"
 
-import sys
 from repository import carica_dati
 from corsi import visualizza_corsi, aggiungi_corso
 from partecipanti import visualizza_partecipanti, aggiungi_partecipante, rimuovi_partecipante
 from goleador import assegna_goleador, rimuovi_goleador
 from statistiche import classifica_goleador, classifica_per_corso, top_scorer_per_corso
+from ai_coach import chiedi_al_coach
 
 # ===================================
 # MAIN
@@ -86,6 +86,7 @@ while programma_attivo == True:
         print("a. Classifica goleador")
         print("b. Classifica corso")
         print("c. Top scorer per ogni corso")
+        print("d. 🤖 Chiedi al Coach AI (Gemini)")
         print("x. Torna al menu principale")
         sub_scelta = input("Scegli: ").lower()
 
@@ -95,6 +96,8 @@ while programma_attivo == True:
             classifica_per_corso(partecipanti, corsi)
         elif sub_scelta == 'c':
             top_scorer_per_corso(partecipanti, corsi)
+        elif sub_scelta == 'd':
+            chiedi_al_coach(partecipanti)
         elif sub_scelta == 'x':
             pass
         
