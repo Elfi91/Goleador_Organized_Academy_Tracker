@@ -1,7 +1,5 @@
-"GEMINI GEM = https://gemini.google.com/gem/1HOZjA5ibxeSk-AKGGa0ToZyXxjtzD-zh?usp=sharing"
-
 from repository import carica_dati
-from corsi import visualizza_corsi, aggiungi_corso
+from corsi import visualizza_corsi, aggiungi_corso, modifica_corso
 from partecipanti import visualizza_partecipanti, aggiungi_partecipante, rimuovi_partecipante
 from goleador import assegna_goleador, rimuovi_goleador
 from statistiche import classifica_goleador, classifica_per_corso, top_scorer_per_corso
@@ -34,6 +32,7 @@ while programma_attivo == True:
         print("\n--- GESTIONE CORSI ---")
         print("a. Visualizza Corsi")
         print("b. Aggiungi Corso")
+        print("c. Modifica Corso")
         print("x. Torna al menu principale")
         
         sub_scelta = input("Cosa vuoi fare? ").lower() 
@@ -42,6 +41,8 @@ while programma_attivo == True:
             visualizza_corsi(corsi)
         elif sub_scelta == 'b':
             aggiungi_corso(partecipanti, corsi)
+        elif sub_scelta == 'c':
+            modifica_corso(partecipanti, corsi)
         elif sub_scelta == 'x':
             pass
         else:

@@ -2,6 +2,10 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 
+cartella_corrente = os.path.dirname(os.path.abspath(__file__))
+percorso_env = os.path.join(cartella_corrente, '.env')
+load_dotenv(percorso_env)
+
 load_dotenv()
 
 API_KEY = os.getenv("GEMINI_KEY")
@@ -10,10 +14,10 @@ def chiedi_al_coach(partecipanti):
     print("\n🤖 Sto chiamando il Coach AI... (Attendi qualche secondo)")
 
     # 1. Controllo di sicurezza
-    if API_KEY.startswith("INSERISCI") or len(API_KEY) < 10:
-        print("❌ ERRORE: Chiave API mancante o non valida in ai_coach.py")
+    if not API_KEY or API_KEY.startswith("INSERISCI") or len(API_KEY) < 10:
+        print("❌ ERRORE: Chiave API mancante, non valida o file .env non trovato.")
         return
-
+    
     try:
         genai.configure(api_key=API_KEY)
         

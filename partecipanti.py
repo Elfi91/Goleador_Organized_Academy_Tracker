@@ -34,33 +34,53 @@ def visualizza_partecipanti(partecipanti):
 # 2. La funzione "Operaia": aggiungi partecipanti
 def aggiungi_partecipante(partecipanti, corsi):
     if len(corsi) == 0:
-        print("Non puoi iscrivere nessuno se non crei prima un corso!")
+        print("⚠️ Non puoi iscrivere nessuno se non crei prima un corso!")
         return
     
-    aggiungi_nome_partecipante = input("Scrivi di seguito il nome del partecipante: ")
-    aggiungi_cognome_partecipante = input("Scrivi di seguito il cognome del partecipante: ")
+    print("\n--- SELEZIONE CORSO ---")
     
     for i, corso in enumerate(corsi):
-        print(f"{i}. {corso['nome_corso']} {corso['numero_posti']}")        
+        # Mostriamo anche i posti disponibili per comodità visiva
+        print(f"{i}. {corso['nome_corso']} (Max posti: {corso['numero_posti']})")        
     
     indice_corso = richiedi_indice_valido(corsi)
 
     # --- LOGICA DI ASSEGNAZIONE ---
     corso_selezionato = corsi[indice_corso]
     nome_corso_scelto = corso_selezionato['nome_corso']
+
+    # 1. Convertiamo il numero di posti da stringa a intero
+    posti_max = int(corso_selezionato['numero_posti'])
+
+    # 2. Contiamo quanti sono GIÀ iscritti a questo corso
+    iscritti_attuali = 0
+    for p in partecipanti:
+        if p.get('corso') == nome_corso_scelto:
+            iscritti_attuali += 1
+
+    # 3. Il Controllo del Buttafuori
+    if iscritti_attuali >= posti_max:
+        print(f"\n⛔ STOP! Il corso '{nome_corso_scelto}' è PIENO ({iscritti_attuali}/{posti_max}).")
+        print("Scegli un altro corso.")
+        return
     
-# 2. Stampa di conferma
-    print(f"\nHai selezionato il corso: {nome_corso_scelto}")
+    # Se siamo qui, c'è posto! Procediamo...
+    print(f"\n✅ C'è posto ({iscritti_attuali}/{posti_max}). Procediamo con l'iscrizione.")
+
+    aggiungi_nome_partecipante = input("Scrivi di seguito il nome del partecipante: ")
+    aggiungi_cognome_partecipante = input("Scrivi di seguito il cognome del partecipante: ")
 
     # Creiamo il dizionario
     nuovo_partecipante = {
         "nome_partecipante": aggiungi_nome_partecipante,
         "cognome_partecipante": aggiungi_cognome_partecipante,
-        "corso" : nome_corso_scelto
+        "corso" : nome_corso_scelto,
+        "goleador" : 0,
+        "storico" : []
     }
 
     # Viene salvato nella lista globale
     partecipanti.append(nuovo_partecipante)
-    print(f"👤 {nuovo_partecipante['nome_partecipante']} {nuovo_partecipante['cognome_partecipante']}")  
+    print(f"🎉 Iscritto! 👤 {nuovo_partecipante['nome_partecipante']} {nuovo_partecipante['cognome_partecipante']} è ora nel corso: {nome_corso_scelto}.")  
 
     salva_dati(corsi, partecipanti)
