@@ -7,7 +7,7 @@ def classifica_goleador(partecipanti):
     classifica.sort(key=lambda p: p.get('goleador', 0), reverse=True)
 
     for i, p in enumerate(classifica):
-        print(f"{i}. 🍬 {p.get('goleador', 0)} 👤 {p['nome_partecipante']} {p['cognome_partecipante']}  📚 {p['corso']} ")
+        print(f"{i + 1}. 🍬 {p.get('goleador', 0)} 👤 {p['nome_partecipante']} {p['cognome_partecipante']}  📚 {p['corso']} ")
 
 def classifica_per_corso(partecipanti, corsi):
     print("\n--- CLASSIFICA PER CORSO ---")
@@ -17,7 +17,7 @@ def classifica_per_corso(partecipanti, corsi):
         return
     
     for i, c in enumerate(corsi):
-        print(f"{i}. {c['nome_corso']}")
+        print(f"{i + 1}. {c['nome_corso']}")
 
     indice = richiedi_indice_valido(corsi)
     corso_scelto = corsi[indice]
@@ -42,7 +42,7 @@ def classifica_per_corso(partecipanti, corsi):
     print(f"\nClassifica per: {nome_del_corso}")
 
     for i, p in enumerate(studenti_del_corso):
-        print(f"{i+1}. {p['nome_partecipante']} (🍬 {p.get('goleador', 0)})")
+        print(f"{i + 1}. {p['nome_partecipante']} (🍬 {p.get('goleador', 0)})")
 
     print(f"\n💰 TOTALE GOLEADOR DISTRIBUITE NEL CORSO: {totale_goleador_corso}")
 

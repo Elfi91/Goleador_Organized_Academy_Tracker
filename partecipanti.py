@@ -8,15 +8,18 @@ def rimuovi_partecipante(partecipanti, corsi):
         return
     
     print("\n--- ELIMINAZIONE ---")
-    for i, partecipante in enumerate(partecipanti):
-        print(f"{i}. {partecipante['nome_partecipante']} {partecipante['cognome_partecipante']}")
+    for i, p in enumerate(partecipanti):
+        nome = p.get('nome_partecipante', 'SCONOSCIUTO')
+        cognome = p.get('cognome_partecipante', '')
+        print(f"{i + 1}. {nome} {cognome}")
 
     print("Scegli il numero del partecipante da eliminare: ")
     indice = richiedi_indice_valido(partecipanti)
 
     rimosso = partecipanti.pop(indice)
 
-    print(f"🗑️  {rimosso['nome_partecipante']} {rimosso['cognome_partecipante']} Eliminato correttamente ")
+    nome_rimosso = rimosso.get('nome_partecipante', 'SCONOSCIUTO')
+    print(f"🗑️ {nome_rimosso} Eliminato correttamente ")
 
     salva_dati(corsi, partecipanti)
 
@@ -28,7 +31,10 @@ def visualizza_partecipanti(partecipanti):
         for p in partecipanti:
             n_goleador = p.get('goleador', 0)
             corso = p.get('corso', 'N/A')
-            print(f"👤 {p['nome_partecipante']} {p['cognome_partecipante']} | 📚 {corso} | 🍬 {n_goleador}")
+            nome = p.get('nome_partecipante', 'SCONOSCIUTO')
+            cognome = p.get('cognome_partecipante', '')
+
+            print(f"👤 {nome} {cognome} | 📚 {corso} | 🍬 {n_goleador}")
 
 
 # 2. La funzione "Operaia": aggiungi partecipanti
@@ -41,7 +47,7 @@ def aggiungi_partecipante(partecipanti, corsi):
     
     for i, corso in enumerate(corsi):
         # Mostriamo anche i posti disponibili per comodità visiva
-        print(f"{i}. {corso['nome_corso']} (Max posti: {corso['numero_posti']})")        
+        print(f"{i + 1}. {corso['nome_corso']} (Max posti: {corso['numero_posti']})")        
     
     indice_corso = richiedi_indice_valido(corsi)
 
@@ -84,3 +90,58 @@ def aggiungi_partecipante(partecipanti, corsi):
     print(f"🎉 Iscritto! 👤 {nuovo_partecipante['nome_partecipante']} {nuovo_partecipante['cognome_partecipante']} è ora nel corso: {nome_corso_scelto}.")  
 
     salva_dati(corsi, partecipanti)
+
+
+def sposta_partecipante(partecipanti, corsi):
+    print("\n--- SPOSTA PARTECIPANTE ---")
+    if len(partecipanti) == 0:
+        print("Nessun partecipante iscritto")
+        return
+    if len(corsi) < 2:
+        print("Serve almeno un altro corso per fare un trasferimento!")
+        return
+
+    print("Chi vuoi spostare?")
+    for i, p in enumerate(partecipanti):
+        nome = p.get('nome_partecipante', 'SCONOSCIUTO')
+        cognome = p.get('cognome_partecipante', '')
+        corso_attuale = p.get('corso', 'Nessun Corso')
+
+        print(f"{i + 1}. {nome} {cognome} (Attuale: {corso_attuale})")
+
+    idx_studente = richiedi_indice_valido(partecipanti)
+    studente = partecipanti[idx_studente]
+
+    if 'nome_partecipante' not in studente:
+        print("⚠️ Attenzione: stai spostando un partecipante con dati corrotti!")
+
+
+    print(f"\nDove vuoi trasferire {studente.get('nome_partecipante', 'questo studente')}?")
+    for i, c in enumerate(corsi):
+        print(f"{i + 1}. {c['nome_corso']} (Max: {c['numero_posti']})")
+
+    idx_corso = richiedi_indice_valido(corsi)
+    corso_destinazione = corsi[idx_corso]
+    nome_nuovo_corso = corso_destinazione['nome_corso']
+
+    posti_max = int(corso_destinazione['numero_posti'])
+
+    iscritti_destinazione = 0
+    for p in partecipanti:
+        if p.get('corso') == nome_nuovo_corso:
+            iscritti_destinazione += 1
+
+        if iscritti_destinazione >= posti_max:
+            print(f"\n⛔ IMPOSSIBILE: Il corso '{nome_nuovo_corso}' è PIENO ({iscritti_destinazione}/{posti_max}).")
+            print("Trasferimento annullato.")
+            return
+        
+        # 3. Eseguiamo il trasferimento
+        vecchio_corso = studente['corso']
+        studente['corso'] = nome_nuovo_corso
+
+        # Se lo studente era corrotto, potremmo cogliere l'occasione per "ripararlo" o lasciarlo così
+        nome_stampa = studente.get('nome_partecipante', 'Utente Anonimo')
+
+        print(f"\n✅ Fatto! {nome_stampa} è passato da '{vecchio_corso}' a '{nome_nuovo_corso}'.")
+        salva_dati(partecipanti, corsi)

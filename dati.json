@@ -1,116 +1,46 @@
 {
     "corsi": [
         {
-            "nome_corso": "Python 1.0",
+            "nome_corso": "\ud83d\udc0d Python 1.0",
+            "numero_posti": "3"
+        },
+        {
+            "nome_corso": "\ud83d\udcd6 PM 1.0",
             "numero_posti": "5"
         },
         {
-            "nome_corso": "Cloud 1.0",
-            "numero_posti": "10"
-        },
-        {
-            "nome_corso": "AI 1.0",
-            "numero_posti": "8"
-        },
-        {
-            "nome_corso": "Server 1.0",
+            "nome_corso": "\u2601 Cloud 1.0",
             "numero_posti": "5"
-        },
-        {
-            "nome_corso": "Test finale",
-            "numero_posti": "2"
         }
     ],
     "partecipanti": [
         {
             "nome_partecipante": "Mario",
             "cognome_partecipante": "Rossi",
-            "corso": "AI 1.0",
-            "goleador": 17,
+            "corso": "\ud83d\udc0d Python 1.0",
+            "goleador": 18,
             "storico": [
                 {
-                    "data": "2026-01-05 18:18:56",
-                    "quantita": 10
+                    "data": "2026-01-07 17:49:10",
+                    "quantita": 22
                 },
                 {
-                    "data": "2026-01-06 18:21:42",
-                    "quantita": 0
+                    "data": "2026-01-07 18:10:52",
+                    "quantita": -4
                 }
             ]
         },
         {
-            "nome_partecipante": "Franca",
-            "cognome_partecipante": "Bianchi",
-            "corso": "Python 1.0",
+            "nome_partecipante": "Max",
+            "cognome_partecipante": "Mara",
+            "corso": "\ud83d\udc0d Python 1.0",
+            "goleador": 32,
             "storico": [
                 {
-                    "data": "2026-01-05 18:19:04",
-                    "quantita": 14
-                },
-                {
-                    "data": "2026-01-05 18:19:42",
-                    "quantita": 2
+                    "data": "2026-01-07 17:49:17",
+                    "quantita": 32
                 }
-            ],
-            "goleador": 16
-        },
-        {
-            "nome_partecipante": "Michela",
-            "cognome_partecipante": "Marint",
-            "corso": "Python 1.0"
-        },
-        {
-            "nome_partecipante": "Tizio",
-            "cognome_partecipante": "Caio",
-            "corso": "Python 1.0",
-            "storico": [
-                {
-                    "data": "2026-01-05 18:19:14",
-                    "quantita": 37
-                },
-                {
-                    "data": "2026-01-05 18:33:08",
-                    "quantita": -5
-                }
-            ],
-            "goleador": 32
-        },
-        {
-            "nome_partecipante": "Tom",
-            "cognome_partecipante": "TomTom",
-            "corso": "Server 1.0",
-            "storico": [
-                {
-                    "data": "2026-01-06 17:24:10",
-                    "quantita": 57
-                },
-                {
-                    "data": "2026-01-06 18:21:50",
-                    "quantita": 5
-                }
-            ],
-            "goleador": 62
-        },
-        {
-            "nome_partecipante": "Mario",
-            "cognome_partecipante": "Test",
-            "corso": "Test finale",
-            "storico": [
-                {
-                    "data": "2026-01-06 18:20:45",
-                    "quantita": 36
-                },
-                {
-                    "data": "2026-01-06 18:21:00",
-                    "quantita": 23
-                }
-            ],
-            "goleador": 59
-        },
-        {
-            "nome_partecipante": "Bianchina",
-            "cognome_partecipante": "Bianchi",
-            "corso": "Test finale"
+            ]
         }
     ]
 }

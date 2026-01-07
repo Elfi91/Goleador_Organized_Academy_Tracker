@@ -11,7 +11,7 @@ def rimuovi_goleador(partecipanti, corsi):
 
     for i, p in enumerate(partecipanti):
         goleador_attuali = p.get('goleador', 0)
-        print(f"{i}. {p['nome_partecipante']} {p['cognome_partecipante']} (Attuali: {goleador_attuali})")
+        print(f"{i + 1}. {p['nome_partecipante']} {p['cognome_partecipante']} (Attuali: {goleador_attuali})")
 
     indice = richiedi_indice_valido(partecipanti)
     partecipante = partecipanti[indice]
@@ -57,7 +57,7 @@ def assegna_goleador(partecipanti, corsi):
 # --- SELEZIONE PARTECIPANTE ---
     print("Seleziona un partecipante:")
     for i, partecipante in enumerate(partecipanti):
-        print(f"{i}. {partecipante['nome_partecipante']} {partecipante['cognome_partecipante']}")
+        print(f"{i + 1}. {partecipante['nome_partecipante']} {partecipante['cognome_partecipante']}")
     
     indice_partecipante = richiedi_indice_valido(partecipanti)
 
